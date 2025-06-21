@@ -28,3 +28,11 @@ data_ingestion_feature_name : str = "feature_store"
 data_ingestion_ingested_name : str = "ingested"
 train_test_split_ratio : float = 0.25
  
+'''
+Data Validation constant 
+'''
+data_validation_dir_name : str = "Data Validation"
+data_validation_validate_dir_name : str = "validate"
+data_validation_invalid_dir_name : str = "invalid"
+data_validation_report_dir : str = "drift_report"
+data_validation_drift_report_name : str = "report.yaml"
