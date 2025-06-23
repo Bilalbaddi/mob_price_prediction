@@ -36,3 +36,13 @@ data_validation_validate_dir_name : str = "validate"
 data_validation_invalid_dir_name : str = "invalid"
 data_validation_report_dir : str = "drift_report"
 data_validation_drift_report_name : str = "report.yaml"
+
+
+'''
+Data Transformation
+'''
+data_transformation_dir_name : str = 'Data Transformation'
+DATA_TRANSFORMATION_TRANSFORMED_DATA_DIR : str = "transformed"
+DATA_TRANSFORMATION_TRANSFORMED_OBJECT_DIR : str = "transformed_object"
+PREPROCESSING_OBJECT_FILE_NAME :str = "preprocessing.pkl"
+

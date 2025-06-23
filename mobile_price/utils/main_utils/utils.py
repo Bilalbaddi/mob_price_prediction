@@ -28,3 +28,21 @@ def write_yaml_files(file_path:str,content:object,replace : bool = False)-> None
                 yaml.dump(file)
     except Exception as e:
         raise PricingException(e,sys) from e
+    
+def save_object(file_path:str,obj:object)->None:
+    try:
+        dir_path = os.path.dirname(file_path)
+        os.makedirs(dir_path,exist_ok=True)
+        with open(file_path,'wb') as file:
+            pickle.dump(obj,file)
+    except Exception as e:
+        raise PricingException(e,sys) from e
+    
+def save_numpy_array(file_path:str,array:np.ndarray) -> None:
+    try:
+        dir_path = os.path.dirname(file_path)
+        os.makedirs(dir_path,exist_ok=True)
+        with open(file_path,'wb') as file:
+            np.save(file,array)
+    except Exception as e:
+        raise PricingException(e,sys) from e
