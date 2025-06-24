@@ -31,10 +31,31 @@ class DataIngestion:
             df = pd.DataFrame(list(collection.find()))
             if "_id" in df.columns.to_list():
                 df = df.drop(columns=["_id"],axis=1)
-            df.replace({"na":np.nan},inplace=True)
+            
             return df
         except Exception as e:
             raise PricingException(e,sys) from e
+    # def get_data_as_dataframe(self) -> pd.DataFrame:
+    #     try:
+    #         # 📂 Replace this with your actual CSV file path
+    #         csv_file_path = "data/dataset.csv"
+            
+    #         # ✅ Read the CSV
+    #         df = pd.read_csv(csv_file_path)
+
+    #         # 🧹 Optional: Clean unwanted characters or whitespace from column names
+    #         # df.columns = df.columns.str.strip()
+
+    #         # 🛠 Optional: Replace 'na' string values with actual NaN
+    #         df.replace({"na": np.nan}, inplace=True)
+
+    #         # 🔍 Check what you loaded
+    #         print("✅ Data loaded from CSV. Columns:\n", df.columns.tolist())
+            
+    #         return df
+    #     except Exception as e:
+    #         raise PricingException(e, sys) from e
+
     def exprot_data_to_feature_store(self,df : pd.DataFrame):
         try:
             logging.info("exporting data to feature folder has satrted")

@@ -1,0 +1,25 @@
+[2025-06-24 20:25:49,849] 18 root - INFO - Starting data ingestion process
+[2025-06-24 20:25:49,849] 70 root - INFO - Initialisation of data ingesgtiom has started
+[2025-06-24 20:25:50,689] 40 root - INFO - exporting data to feature folder has satrted
+[2025-06-24 20:25:50,746] 45 root - INFO - Data exported to feature store at Artifacts\06-24-2025-20-25-45\Data Ingestion\feature_store\dataset.csv
+[2025-06-24 20:25:50,752] 52 root - INFO - Performed tarin test split on the dataframe
+[2025-06-24 20:25:50,754] 58 root - INFO - File has been created sucessfully
+[2025-06-24 20:25:50,802] 62 root - INFO - File has been saved sucessfully
+[2025-06-24 20:25:50,802] 74 root - INFO - Data ingestion completed successfully
+[2025-06-24 20:25:50,802] 20 root - INFO - Data ingestion process completed successfully
+[2025-06-24 20:25:50,812] 27 root - INFO - Starting data validation process
+[2025-06-24 20:25:50,852] 27 root - INFO - Number of columns in the schema: 21
+[2025-06-24 20:25:50,852] 28 root - INFO - Number of columns in the dataframe: 21
+[2025-06-24 20:25:50,852] 27 root - INFO - Number of columns in the schema: 21
+[2025-06-24 20:25:50,852] 28 root - INFO - Number of columns in the dataframe: 21
+[2025-06-24 20:25:50,852] 38 root - INFO - Number of columns in the schema: 21
+[2025-06-24 20:25:50,852] 39 root - INFO - Number of numerical columns in the dataframe: 21
+[2025-06-24 20:25:50,852] 38 root - INFO - Number of columns in the schema: 21
+[2025-06-24 20:25:50,852] 39 root - INFO - Number of numerical columns in the dataframe: 21
+[2025-06-24 20:25:50,915] 29 root - INFO - Data validation process completed successfully
+[2025-06-24 20:25:50,916] 33 root - INFO - Starting data transformation process
+[2025-06-24 20:25:50,960] 37 root - INFO - Data transformation process completed successfully
+[2025-06-24 20:25:50,960] 39 root - INFO - starting model trainng
+[2025-06-24 20:25:53,001] 13 root - INFO - F1 Score: 0.3242213744484758, Precision: 0.3374611796917739, Recall: 0.34268784241412165
+[2025-06-24 20:25:53,018] 13 root - INFO - F1 Score: 0.29171250660095055, Precision: 0.2997880791726705, Recall: 0.30948169477581244
+[2025-06-24 20:25:53,025] 43 root - INFO - Model Trainer process has completed

@@ -1,9 +1,0 @@
-[2025-06-19 20:38:43,210] 18 root - INFO - Starting data ingestion process
-[2025-06-19 20:38:43,210] 70 root - INFO - Initialisation of data ingesgtiom has started
-[2025-06-19 20:38:44,583] 40 root - INFO - exporting data to feature folder has satrted
-[2025-06-19 20:38:44,630] 45 root - INFO - Data exported to feature store at Artifacts\06-19-2025-20-38-40\Data Ingestion\feature_store\dataset.csv
-[2025-06-19 20:38:44,636] 52 root - INFO - Performed tarin test split on the dataframe
-[2025-06-19 20:38:44,636] 58 root - INFO - File has been created sucessfully
-[2025-06-19 20:38:44,721] 62 root - INFO - File has been saved sucessfully
-[2025-06-19 20:38:44,742] 74 root - INFO - Data ingestion completed successfully
-[2025-06-19 20:38:44,742] 20 root - INFO - Data ingestion process completed successfully

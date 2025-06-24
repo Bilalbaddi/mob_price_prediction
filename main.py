@@ -1,8 +1,8 @@
 from mobile_price.logging.logger import logging
-from mobile_price.entity.config_entity import  DataIngestionConfig,TRAININGPIPELINECONFIG,DataValidationConfig,DataTransformationConfig
+from mobile_price.entity.config_entity import  DataIngestionConfig,TRAININGPIPELINECONFIG,DataValidationConfig,DataTransformationConfig,ModelTrainerConfig
 from mobile_price.components.data_ingestion import DataIngestion
 from mobile_price.components.data_validation import DataValidation
-# from mobile_price.components.model_trainer import ModelTrainer
+from mobile_price.components.model_trainer import ModelTrainer
 from mobile_price.components.data_transformation import DataTransformation
 from mobile_price.exception.exception import PricingException
 
@@ -35,5 +35,12 @@ if __name__ == "__main__":
         data_transformation = DataTransformation(data_validation_artifact=data_validation_artifact, data_transformation_config=data_transformation_config)
         data_transformation_artifact = data_transformation.initiate_data_transformation()
         logging.info("Data transformation process completed successfully")
+
+        logging.info("starting model trainng")
+        model_trainer_config = ModelTrainerConfig(trainingpipelineconfig)
+        model_trainer = ModelTrainer(data_transformation_artifact,model_trainer_config)
+        model_trainer_artifact = model_trainer.initiate_model_trainer()
+        logging.info("Model Trainer process has completed")
+        
     except Exception as e:
         raise PricingException(e,sys) from e

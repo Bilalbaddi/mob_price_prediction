@@ -1,2 +1,0 @@
-[2025-06-19 20:18:00,929] 18 root - INFO - Starting data ingestion process
-[2025-06-19 20:18:01,479] 43 root - INFO - Data exported to feature store at Artifacts\06-19-2025-20-17-52\Data Ingestion\feature_store\dataset.csv

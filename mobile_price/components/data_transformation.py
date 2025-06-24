@@ -46,7 +46,7 @@ class DataTransformation:
             pipeline : Pipeline= Pipeline(
                 steps=[
                     ('scaler',scaler),
-                    ('pca',pca)
+                    # ('pca',pca)
                 ]
             )
             return pipeline
@@ -74,7 +74,9 @@ class DataTransformation:
             transformed_input_test_feature = pre_obj.transform(input_test_feature_df)
 
             train_arr = np.c_[transformed_input_train_feature, np.array(target_train_feature)]
+
             test_arr = np.c_[transformed_input_test_feature, np.array(target_test_feature_df)]
+
 
             save_numpy_array(file_path=self.data_transformation_config.train_transformed_file_path,array=train_arr)
             save_numpy_array(file_path = self.data_transformation_config.test_transformed_file_path,array=test_arr)

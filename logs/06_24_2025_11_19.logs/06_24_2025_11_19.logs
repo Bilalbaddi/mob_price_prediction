@@ -1,0 +1,22 @@
+[2025-06-24 19:11:26,127] 18 root - INFO - Starting data ingestion process
+[2025-06-24 19:11:26,132] 70 root - INFO - Initialisation of data ingesgtiom has started
+[2025-06-24 19:11:26,879] 40 root - INFO - exporting data to feature folder has satrted
+[2025-06-24 19:11:26,906] 45 root - INFO - Data exported to feature store at Artifacts\06-24-2025-19-11-20\Data Ingestion\feature_store\dataset.csv
+[2025-06-24 19:11:26,911] 52 root - INFO - Performed tarin test split on the dataframe
+[2025-06-24 19:11:26,911] 58 root - INFO - File has been created sucessfully
+[2025-06-24 19:11:26,932] 62 root - INFO - File has been saved sucessfully
+[2025-06-24 19:11:26,932] 74 root - INFO - Data ingestion completed successfully
+[2025-06-24 19:11:26,932] 20 root - INFO - Data ingestion process completed successfully
+[2025-06-24 19:11:26,945] 27 root - INFO - Starting data validation process
+[2025-06-24 19:11:26,975] 27 root - INFO - Number of columns in the schema: 21
+[2025-06-24 19:11:26,975] 28 root - INFO - Number of columns in the dataframe: 21
+[2025-06-24 19:11:26,975] 27 root - INFO - Number of columns in the schema: 21
+[2025-06-24 19:11:26,975] 28 root - INFO - Number of columns in the dataframe: 21
+[2025-06-24 19:11:26,975] 38 root - INFO - Number of columns in the schema: 21
+[2025-06-24 19:11:26,978] 39 root - INFO - Number of numerical columns in the dataframe: 21
+[2025-06-24 19:11:26,978] 38 root - INFO - Number of columns in the schema: 21
+[2025-06-24 19:11:26,979] 39 root - INFO - Number of numerical columns in the dataframe: 21
+[2025-06-24 19:11:27,018] 29 root - INFO - Data validation process completed successfully
+[2025-06-24 19:11:27,018] 33 root - INFO - Starting data transformation process
+[2025-06-24 19:11:27,046] 37 root - INFO - Data transformation process completed successfully
+[2025-06-24 19:11:27,046] 39 root - INFO - starting model trainng
