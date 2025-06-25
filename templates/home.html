@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Mobile Price Predictor</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .particle:nth-child(1) { top: 10%; left: 10%; animation-delay: 0s; }
+        .particle:nth-child(2) { top: 20%; left: 80%; animation-delay: 1s; }
+        .particle:nth-child(3) { top: 60%; left: 20%; animation-delay: 2s; }
+        .particle:nth-child(4) { top: 80%; left: 70%; animation-delay: 3s; }
+        .particle:nth-child(5) { top: 40%; left: 90%; animation-delay: 4s; }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            min-height: calc(100vh - 40px);
+            align-items: center;
+        }
+
+        .hero-section {
+            color: white;
+            padding: 50px;
+            animation: slideInLeft 1s ease-out;
+            position: relative;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #fff, #e0e7ff, #fbbf24);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.1;
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero-subtitle {
+            font-size: 1.4rem;
+            opacity: 0.95;
+            margin-bottom: 40px;
+            font-weight: 300;
+            line-height: 1.6;
+        }
+
+        .hero-features {
+            list-style: none;
+            margin-top: 50px;
+        }
+
+        .hero-features li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            opacity: 0.9;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .hero-features li:hover {
+            opacity: 1;
+            transform: translateX(10px);
+        }
+
+        .hero-features li::before {
+            content: "📱";
+            font-size: 1.5rem;
+            margin-right: 20px;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+        }
+
+        .phone-mockup {
+            position: absolute;
+            top: 20%;
+            right: -20%;
+            width: 200px;
+            height: 400px;
+            background: linear-gradient(145deg, #333, #666);
+            border-radius: 30px;
+            opacity: 0.1;
+            animation: phoneFloat 4s ease-in-out infinite;
+        }
+
+        .form-container {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(25px);
+            border-radius: 28px;
+            padding: 50px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            animation: slideInRight 1s ease-out;
+            max-height: 85vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .form-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #1f2937;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .form-subtitle {
+            color: #6b7280;
+            font-size: 1.1rem;
+            font-weight: 300;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .form-group {
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .form-group:hover {
+            transform: translateY(-2px);
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 18px 24px;
+            border: 2px solid #e5e7eb;
+            border-radius: 16px;
+            font-size: 1.1rem;
+            transition: all 0.4s ease;
+            background: #fefefe;
+            color: #1f2937;
+            font-weight: 500;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.15);
+            transform: translateY(-3px);
+            background: #fff;
+        }
+
+        .form-input:hover {
+            border-color: #d1d5db;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .form-input::placeholder {
+            color: #9ca3af;
+            font-weight: 400;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 22px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            color: white;
+            border: none;
+            border-radius: 16px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
+        }
+
+        .submit-btn:active {
+            transform: translateY(-2px);
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.6s;
+        }
+
+        .submit-btn:hover::before {
+            left: 100%;
+        }
+
+        .result-section {
+            margin-top: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #f0fdf4 100%);
+            border-radius: 20px;
+            border: 2px solid #0ea5e9;
+            display: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .result-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #0ea5e9, #10b981, #f59e0b);
+        }
+
+        .result-section.show {
+            display: block;
+            animation: resultAppear 0.8s ease-out;
+        }
+
+        .result-title {
+            font-weight: 800;
+            color: #0c4a6e;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .result-value {
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #0369a1, #10b981);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+        }
+
+        .result-category {
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .category-0 { background: #dcfce7; color: #166534; }
+        .category-1 { background: #fef3c7; color: #92400e; }
+        .category-2 { background: #fed7aa; color: #9a3412; }
+        .category-3 { background: #fecaca; color: #991b1b; }
+
+        .spec-highlight {
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 12px;
+            border-left: 4px solid #667eea;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 10px;
+        }
+
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-80px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(80px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes resultAppear {
+            from { opacity: 0; transform: translateY(50px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-30px); }
+        }
+
+        @keyframes phoneFloat {
+            0%, 100% { transform: translateY(0px) rotate(-5deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 1024px) {
+            .container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                padding: 0 10px;
+            }
+
+            .hero-title {
+                font-size: 3rem;
+            }
+
+            .form-container {
+                padding: 40px 30px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .form-container {
+                padding: 30px 20px;
+                margin: 10px;
+            }
+
+            .form-grid {
+                gap: 20px;
+            }
+        }
+
+        /* Custom scrollbar */
+        .form-container::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .form-container::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        .form-container::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <div class="container">
+        <div class="hero-section">
+            <div class="phone-mockup"></div>
+            <h1 class="hero-title">Smart Price Predictor</h1>
+            <p class="hero-subtitle">Harness the power of advanced machine learning to predict mobile phone prices with exceptional accuracy based on comprehensive specifications analysis.</p>
+            
+            <ul class="hero-features">
+                <li>Intelligent specification analysis</li>
+                <li>Real-time price prediction</li>
+                <li>Market trend integration</li>
+                <li>95% prediction accuracy</li>
+                <li>Comprehensive feature evaluation</li>
+            </ul>
+        </div>
+
+        <div class="form-container">
+            <div class="form-header">
+                <h2 class="form-title">Price Prediction</h2>
+                <p class="form-subtitle">Enter mobile specifications for intelligent price analysis</p>
+            </div>
+
+            <form method="POST" action="/predictdata" id="priceForm">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label" for="battery_power">Battery Power (mAh)</label>
+                        <input type="number" step="0.01" class="form-input" id="battery_power" name="battery_power" placeholder="e.g., 3000" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="blue">Bluetooth (0/1)</label>
+                        <input type="number" min="0" max="1" step="1" class="form-input" id="blue" name="blue" placeholder="0 = No, 1 = Yes" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="clock_speed">Clock Speed (GHz)</label>
+                        <input type="number" step="0.01" class="form-input" id="clock_speed" name="clock_speed" placeholder="e.g., 2.5" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="dual_sim">Dual SIM (0/1)</label>
+                        <input type="number" min="0" max="1" step="1" class="form-input" id="dual_sim" name="dual_sim" placeholder="0 = No, 1 = Yes" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="fc">Front Camera (MP)</label>
+                        <input type="number" step="0.01" class="form-input" id="fc" name="fc" placeholder="e.g., 8" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="four_g">4G Support (0/1)</label>
+                        <input type="number" min="0" max="1" step="1" class="form-input" id="four_g" name="four_g" placeholder="0 = No, 1 = Yes" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="int_memory">Internal Memory (GB)</label>
+                        <input type="number" step="0.01" class="form-input" id="int_memory" name="int_memory" placeholder="e.g., 64" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="m_dep">Mobile Depth (cm)</label>
+                        <input type="number" step="0.01" class="form-input" id="m_dep" name="m_dep" placeholder="e.g., 0.8" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="mobile_wt">Mobile Weight (g)</label>
+                        <input type="number" step="0.01" class="form-input" id="mobile_wt" name="mobile_wt" placeholder="e.g., 150" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="n_cores">Number of Cores</label>
+                        <input type="number" step="1" class="form-input" id="n_cores" name="n_cores" placeholder="e.g., 8" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="pc">Primary Camera (MP)</label>
+                        <input type="number" step="0.01" class="form-input" id="pc" name="pc" placeholder="e.g., 12" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="px_height">Pixel Height</label>
+                        <input type="number" step="1" class="form-input" id="px_height" name="px_height" placeholder="e.g., 1920" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="px_width">Pixel Width</label>
+                        <input type="number" step="1" class="form-input" id="px_width" name="px_width" placeholder="e.g., 1080" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="ram">RAM (MB)</label>
+                        <input type="number" step="0.01" class="form-input" id="ram" name="ram" placeholder="e.g., 4096" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="sc_h">Screen Height (cm)</label>
+                        <input type="number" step="0.01" class="form-input" id="sc_h" name="sc_h" placeholder="e.g., 12.5" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="sc_w">Screen Width (cm)</label>
+                        <input type="number" step="0.01" class="form-input" id="sc_w" name="sc_w" placeholder="e.g., 6.2" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="talk_time">Talk Time (hours)</label>
+                        <input type="number" step="0.01" class="form-input" id="talk_time" name="talk_time" placeholder="e.g., 20" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="three_g">3G Support (0/1)</label>
+                        <input type="number" min="0" max="1" step="1" class="form-input" id="three_g" name="three_g" placeholder="0 = No, 1 = Yes" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="touch_screen">Touch Screen (0/1)</label>
+                        <input type="number" min="0" max="1" step="1" class="form-input" id="touch_screen" name="touch_screen" placeholder="0 = No, 1 = Yes" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="wifi">WiFi Support (0/1)</label>
+                        <input type="number" min="0" max="1" step="1" class="form-input" id="wifi" name="wifi" placeholder="0 = No, 1 = Yes" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    Predict Price Range
+                </button>
+            </form>
+
+            {% if results is defined and results is not none %}
+            <div class="result-section show">
+                <h3 class="result-title">Price Category Prediction</h3>
+                <div class="result-value">Category: {{ results }}</div>
+                
+                <div class="result-category category-{{ results }}">
+                    {% if results == 0 %}
+                        💰 Budget Range - Low Cost
+                    {% elif results == 1 %}
+                        💎 Mid Range - Medium Cost
+                    {% elif results == 2 %}
+                        🌟 High Range - High Cost
+                    {% elif results == 3 %}
+                        👑 Premium Range - Very High Cost
+                    {% else %}
+                        📱 Category {{ results }}
+                    {% endif %}
+                </div>
+
+                <div class="spec-highlight">
+                    <strong>Price Categories:</strong><br>
+                    <span style="color: #166534;">0 = Budget (₹5,000 - ₹15,000)</span><br>
+                    <span style="color: #92400e;">1 = Mid-Range (₹15,000 - ₹30,000)</span><br>
+                    <span style="color: #9a3412;">2 = High-End (₹30,000 - ₹50,000)</span><br>
+                    <span style="color: #991b1b;">3 = Premium (₹50,000+)</span>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('priceForm');
+            const inputs = document.querySelectorAll('.form-input');
+            const submitBtn = document.getElementById('submitBtn');
+
+            // Enhanced form animations
+            inputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    this.parentElement.style.transform = 'scale(1.03)';
+                    this.parentElement.style.zIndex = '10';
+                });
+
+                input.addEventListener('blur', function() {
+                    this.parentElement.style.transform = 'scale(1)';
+                    this.parentElement.style.zIndex = '1';
+                });
+
+                // Add shimmer effect on focus
+                input.addEventListener('focus', function() {
+                    this.style.background = 'linear-gradient(90deg, #fff 0%, #f8fafc 50%, #fff 100%)';
+                });
+
+                input.addEventListener('blur', function() {
+                    this.style.background = '#fefefe';
+                });
+            });
+
+            // Enhanced form submission
+            form.addEventListener('submit', function(e) {
+                submitBtn.innerHTML = '<div class="loading"></div>Analyzing Specifications...';
+                submitBtn.style.background = 'linear-gradient(135deg, #9333ea 0%, #7c3aed 50%, #ec4899 100%)';
+                submitBtn.disabled = true;
+                
+                // Add processing animation
+                setTimeout(() => {
+                    if (submitBtn.disabled) {
+                        submitBtn.innerHTML = '<div class="loading"></div>Processing...';
+                    }
+                }, 1000);
+            });
+
+            // Add sample data for demonstration
+            const sampleBtn = document.createElement('button');
+            sampleBtn.type = 'button';
+            sampleBtn.className = 'submit-btn';
+            sampleBtn.innerHTML = 'Load Sample Data';
+            sampleBtn.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
+            sampleBtn.style.marginBottom = '20px';
+            
+            sampleBtn.addEventListener('click', function() {
+                // Sample smartphone specifications
+                document.getElementById('battery_power').value = '3000';
+                document.getElementById('blue').value = '1';
+                document.getElementById('clock_speed').value = '2.2';
+                document.getElementById('dual_sim').value = '1';
+                document.getElementById('fc').value = '8';
+                document.getElementById('four_g').value = '1';
+                document.getElementById('int_memory').value = '64';
+                document.getElementById('m_dep').value = '0.8';
+                document.getElementById('mobile_wt').value = '160';
+                document.getElementById('n_cores').value = '8';
+                document.getElementById('pc').value = '12';
+                document.getElementById('px_height').value = '1920';
+                document.getElementById('px_width').value = '1080';
+                document.getElementById('ram').value = '4096';
+                document.getElementById('sc_h').value = '15.2';
+                document.getElementById('sc_w').value = '7.6';
+                document.getElementById('talk_time').value = '22';
+                document.getElementById('three_g').value = '1';
+                document.getElementById('touch_screen').value = '1';
+                document.getElementById('wifi').value = '1';
+
+                // Add sample data animation
+                inputs.forEach((input, index) => {
+                    setTimeout(() => {
+                        input.style.transform = 'scale(1.05)';
+                        input.style.borderColor = '#10b981';
+                        setTimeout(() => {
+                            input.style.transform = 'scale(1)';
+                            input.style.borderColor = '#e5e7eb';
+                        }, 300);
+                    }, index * 50);
+                });
+            });
+
+            form.insertBefore(sampleBtn, submitBtn);
+
+            // Add floating animation to particles
+            const particles = document.querySelectorAll('.particle');
+            particles.forEach(particle => {
+                const randomDelay = Math.random() * 2;
+                const randomDuration = 4 + Math.random() * 4;
+                particle.style.animationDelay = randomDelay + 's';
+                particle.style.animationDuration = randomDuration + 's';
+            });
+        });
+    </script>
+</body>
+</html>

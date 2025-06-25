@@ -1,0 +1,14 @@
+[2025-06-25 12:36:34,040] 97 werkzeug - WARNING -  * Debugger is active!
+[2025-06-25 12:36:34,053] 97 werkzeug - INFO -  * Debugger PIN: 953-499-465
+[2025-06-25 12:36:40,883] 97 werkzeug - INFO - 127.0.0.1 - - [25/Jun/2025 12:36:40] "GET /predictdata HTTP/1.1" 200 -
+[2025-06-25 12:38:12,217] 97 werkzeug - INFO - 127.0.0.1 - - [25/Jun/2025 12:38:12] "[35m[1mPOST /predictdata HTTP/1.1[0m" 500 -
+[2025-06-25 12:38:12,544] 97 werkzeug - INFO - 127.0.0.1 - - [25/Jun/2025 12:38:12] "GET /predictdata?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+[2025-06-25 12:38:12,560] 97 werkzeug - INFO - 127.0.0.1 - - [25/Jun/2025 12:38:12] "GET /predictdata?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+[2025-06-25 12:38:12,632] 97 werkzeug - INFO - 127.0.0.1 - - [25/Jun/2025 12:38:12] "GET /predictdata?__debugger__=yes&cmd=resource&f=console.png&s=WyFjh6E3lspfx4JgKOWT HTTP/1.1" 200 -
+[2025-06-25 12:38:12,678] 97 werkzeug - INFO - 127.0.0.1 - - [25/Jun/2025 12:38:12] "GET /predictdata?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+[2025-06-25 12:38:49,628] 97 werkzeug - INFO - 127.0.0.1 - - [25/Jun/2025 12:38:49] "[35m[1mPOST /predictdata HTTP/1.1[0m" 500 -
+[2025-06-25 12:38:49,667] 97 werkzeug - INFO - 127.0.0.1 - - [25/Jun/2025 12:38:49] "[36mGET /predictdata?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+[2025-06-25 12:38:49,668] 97 werkzeug - INFO - 127.0.0.1 - - [25/Jun/2025 12:38:49] "[36mGET /predictdata?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+[2025-06-25 12:38:49,689] 97 werkzeug - INFO - 127.0.0.1 - - [25/Jun/2025 12:38:49] "[36mGET /predictdata?__debugger__=yes&cmd=resource&f=console.png&s=WyFjh6E3lspfx4JgKOWT HTTP/1.1[0m" 304 -
+[2025-06-25 12:38:49,717] 97 werkzeug - INFO - 127.0.0.1 - - [25/Jun/2025 12:38:49] "[36mGET /predictdata?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+[2025-06-25 12:41:27,537] 97 werkzeug - INFO -  * Detected change in 'C:\\Users\\BILAL BUDDI\\OneDrive\\Documents\\mobile_price_predication\\mobile_price\\pipeline\\predict_pipeline.py', reloading
